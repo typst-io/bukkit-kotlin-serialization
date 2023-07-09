@@ -7,6 +7,10 @@ A [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization#kotlin
 No boilerplate, the static config parser will be generated automatically.
 
 ```kotlin
+import com.charleskorn.kaml.Yaml
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+
 @Serializable
 data class MyConfig(
     val name: String,

@@ -1,8 +1,6 @@
-@file:OptIn(ExperimentalSerializationApi::class)
 
 package io.typecraft.bukkit.kotlin.serialization
 
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.SerialDescriptor

@@ -7,6 +7,7 @@ A kotlinx.serialization extension for Bukkit serializable objects
 No boilerplate, the static config parser will be generated automatically.
 
 ```kotlin
+@Serializable
 data class MyConfig(
     val name: String,
     @Serializable(ItemStackSerializer::class)

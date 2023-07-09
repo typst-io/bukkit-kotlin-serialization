@@ -78,8 +78,8 @@ object ConfigSerializableSerializer : KSerializer<ConfigurationSerializable> {
             else -> throw IllegalArgumentException("Unknown type ${x.javaClass.name} $x")
         }
 
-    fun decodeBukkitObjectFromJsonElement(x: JsonElement): Any? {
-        return when (x) {
+    fun decodeBukkitObjectFromJsonElement(x: JsonElement): Any? =
+        when (x) {
             is JsonArray -> x.map {
                 decodeBukkitObjectFromJsonElement(it)
             }.toList()
@@ -88,18 +88,16 @@ object ConfigSerializableSerializer : KSerializer<ConfigurationSerializable> {
                 val map: Map<String, Any?> = x.map { (k, v) ->
                     k to decodeBukkitObjectFromJsonElement(v)
                 }.toMap()
-                val bukkitObject = ConfigurationSerialization.deserializeObject(map)
-                bukkitObject ?: map
+                if (map.containsKey(ConfigurationSerialization.SERIALIZED_TYPE_KEY)) {
+                    ConfigurationSerialization.deserializeObject(map)
+                } else map
             }
 
             JsonNull -> null
-
             is JsonPrimitive -> {
-                return if (x.isString) {
+                if (x.isString) {
                     x.content
                 } else x.intOrNull ?: x.longOrNull ?: x.doubleOrNull
             }
-
         }
-    }
 }

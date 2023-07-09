@@ -1,6 +1,6 @@
 # bukkit-kotlin-serialization
 
-A kotlinx.serialization extension for Bukkit serializable objects
+A [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization#kotlin-multiplatform--multi-format-reflectionless-serialization) extension for Bukkit serializable objects
 
 ## Usage
 

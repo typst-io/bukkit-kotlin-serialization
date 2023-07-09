@@ -19,12 +19,12 @@ class MyPlugin : JavaPlugin() {
     var myConfig: MyConfig = MyConfig("", null)
 
     override fun onEnable(): Unit {
-        Yaml.default.decodeFromString(File(dataFolder, "config.yml").readText())
+        this.myConfig = Yaml.default.decodeFromString(File(dataFolder, "config.yml").readText())
         // or Json.decodeFromString
     }
 
     override fun onDisable(): Unit {
-        File(dataFolder, "config.yml").writeText(Yaml.default.encodeToString(myConfig))
+        File(dataFolder, "config.yml").writeText(Yaml.default.encodeToString(this.myConfig))
         // or Json.encodeToString
     }
 } 

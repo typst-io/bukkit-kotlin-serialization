@@ -72,9 +72,9 @@ fun decodeBukkitObjectFromJsonElement(x: JsonElement): Any? {
         JsonNull -> null
 
         is JsonPrimitive -> {
-            return x.intOrNull ?: x.longOrNull
-            ?: x.doubleOrNull
-            ?: x.content
+            return if (x.isString) {
+                x.content
+            } else x.intOrNull ?: x.longOrNull ?: x.doubleOrNull
         }
 
     }

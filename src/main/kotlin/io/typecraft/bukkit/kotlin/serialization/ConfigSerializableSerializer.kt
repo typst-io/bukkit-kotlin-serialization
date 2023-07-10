@@ -38,7 +38,7 @@ object ConfigSerializableSerializer : KSerializer<ConfigurationSerializable> {
             ?: throw IllegalStateException(map.toString())
     }
 
-    fun encodeBukkitObjectToJsonElement(x: Any): JsonElement =
+    fun encodeBukkitObjectToJsonElement(x: Any?): JsonElement =
         when (x) {
             is Boolean -> JsonPrimitive(x)
             is Number -> JsonPrimitive(x)
@@ -74,6 +74,8 @@ object ConfigSerializableSerializer : KSerializer<ConfigurationSerializable> {
                     map + (ConfigurationSerialization.SERIALIZED_TYPE_KEY to alias)
                 )
             }
+
+            null -> JsonNull
 
             else -> throw IllegalArgumentException("Unknown type ${x.javaClass.name} $x")
         }

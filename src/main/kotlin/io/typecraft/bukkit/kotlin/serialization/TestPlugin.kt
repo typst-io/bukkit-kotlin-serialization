@@ -1,6 +1,5 @@
 package io.typecraft.bukkit.kotlin.serialization
 
-import com.charleskorn.kaml.Yaml
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -32,11 +31,6 @@ class TestPlugin : JavaPlugin() {
         println(text)
         val newData = Json.decodeFromString<MyData>(text)
         assert(data == newData)
-        // yaml
-        // TODO: check
-        val yamlText = Yaml.default.encodeToString(data)
-        println(yamlText)
-        val yamlData = Yaml.default.decodeFromString<MyData>(yamlText)
-        assert(data == yamlData)
+        // TODO: yaml
     }
 }

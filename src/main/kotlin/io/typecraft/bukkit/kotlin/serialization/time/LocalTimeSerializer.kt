@@ -12,14 +12,14 @@ import java.time.LocalDateTime
 import java.time.LocalTime
 
 typealias LocalTimeAsString = @Serializable(LocalTimeSerializer::class) LocalTime
-object LocalTimeSerializer : KSerializer<LocalDate> {
+object LocalTimeSerializer : KSerializer<LocalTime> {
     override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("LocalTime", PrimitiveKind.STRING)
 
-    override fun deserialize(decoder: Decoder): LocalDate {
-        return LocalDate.parse(decoder.decodeString())
+    override fun deserialize(decoder: Decoder): LocalTime {
+        return LocalTime.parse(decoder.decodeString())
     }
 
-    override fun serialize(encoder: Encoder, value: LocalDate) {
+    override fun serialize(encoder: Encoder, value: LocalTime) {
         encoder.encodeString(value.toString())
     }
 }

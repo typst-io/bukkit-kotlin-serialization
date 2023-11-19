@@ -7,7 +7,7 @@ plugins {
 }
 
 group = 'io.typecraft'
-version = '0.3.0'
+version = '0.4.0'
 
 repositories {
     mavenCentral()
@@ -16,6 +16,7 @@ repositories {
 dependencies {
     compileOnly spigot('1.12.2')
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1'
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 }
 

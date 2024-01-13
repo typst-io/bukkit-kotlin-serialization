@@ -35,12 +35,12 @@ class MyPlugin : JavaPlugin() {
     var myConfig: MyConfig = MyConfig("", null)
 
     override fun onEnable(): Unit {
-        this.myConfig = Json.default.decodeFromString(File(dataFolder, "config.json").readText())
+        this.myConfig = Json.Default.decodeFromString(File(dataFolder, "config.json").readText())
         // or Json.decodeFromString
     }
 
     override fun onDisable(): Unit {
-        File(dataFolder, "config.json").writeText(Json.default.encodeToString(this.myConfig))
+        File(dataFolder, "config.json").writeText(Json.Default.encodeToString(this.myConfig))
         // or Json.encodeToString
     }
 } 

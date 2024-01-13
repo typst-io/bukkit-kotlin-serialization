@@ -1,8 +1,8 @@
-package io.typecraft.bukkit.kotlin.serialization.ktstd
+package io.typst.bukkit.kotlin.serialization.ktstd
 
 
-import io.typecraft.bukkit.kotlin.serialization.decodeFromString
-import io.typecraft.bukkit.kotlin.serialization.encodeToString
+import io.typst.bukkit.kotlin.serialization.decodeFromString
+import io.typst.bukkit.kotlin.serialization.encodeToString
 import org.junit.jupiter.api.Test
 import kotlin.test.assertEquals
 

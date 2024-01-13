@@ -4,6 +4,17 @@ A [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization#kotlin
 
 ## Usage
 
+Gradle: 
+```
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation('io.typst:bukkit-kotlin-serialization:1.0.0')
+}
+```
+
 No boilerplate, the static config parser will be generated automatically.
 
 ```kotlin
@@ -23,12 +34,12 @@ class MyPlugin : JavaPlugin() {
     var myConfig: MyConfig = MyConfig("", null)
 
     override fun onEnable(): Unit {
-        this.myConfig = Yaml.default.decodeFromString(File(dataFolder, "config.yml").readText())
+        this.myConfig = Json.default.decodeFromString(File(dataFolder, "config.json").readText())
         // or Json.decodeFromString
     }
 
     override fun onDisable(): Unit {
-        File(dataFolder, "config.yml").writeText(Yaml.default.encodeToString(this.myConfig))
+        File(dataFolder, "config.json").writeText(Json.default.encodeToString(this.myConfig))
         // or Json.encodeToString
     }
 } 

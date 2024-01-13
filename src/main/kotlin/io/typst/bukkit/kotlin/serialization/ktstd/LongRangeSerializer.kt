@@ -1,6 +1,6 @@
-package io.typecraft.bukkit.kotlin.serialization.ktstd
+package io.typst.bukkit.kotlin.serialization.ktstd
 
-import io.typecraft.bukkit.kotlin.serialization.substringOrEmpty
+import io.typst.bukkit.kotlin.serialization.substringOrEmpty
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind

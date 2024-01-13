@@ -1,23 +1,24 @@
-package io.typecraft.bukkit.kotlin.serialization
+
+package io.typst.bukkit.kotlin.serialization
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
-import org.bukkit.util.Vector
+import org.bukkit.inventory.ItemStack
 
-typealias VectorSerializable = @Serializable(VectorSerializer::class) Vector
+typealias ItemStackSerializable = @Serializable(ItemStackSerializer::class) ItemStack
 
-class VectorSerializer : KSerializer<Vector> {
+class ItemStackSerializer : KSerializer<ItemStack> {
     override val descriptor: SerialDescriptor
         get() = ConfigSerializableSerializer.descriptor
 
-    override fun serialize(encoder: Encoder, value: Vector) =
+    override fun serialize(encoder: Encoder, value: ItemStack) =
         encoder.encodeSerializableValue(ConfigSerializableSerializer, value)
 
-    override fun deserialize(decoder: Decoder): Vector {
+    override fun deserialize(decoder: Decoder): ItemStack {
         val serializable = decoder.decodeSerializableValue(ConfigSerializableSerializer)
-        return serializable as Vector
+        return serializable as ItemStack
     }
 }

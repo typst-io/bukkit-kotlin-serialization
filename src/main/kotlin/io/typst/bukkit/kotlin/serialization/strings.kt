@@ -1,4 +1,4 @@
-package io.typecraft.bukkit.kotlin.serialization
+package io.typst.bukkit.kotlin.serialization
 
 internal fun String.substringOrEmpty(x: Int): String =
     if (x <= length) {

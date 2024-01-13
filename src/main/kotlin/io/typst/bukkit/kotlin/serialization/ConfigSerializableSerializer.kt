@@ -1,4 +1,4 @@
-package io.typecraft.bukkit.kotlin.serialization
+package io.typst.bukkit.kotlin.serialization
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.builtins.MapSerializer

@@ -1,4 +1,4 @@
-package io.typecraft.bukkit.kotlin.serialization.time
+package io.typst.bukkit.kotlin.serialization.time
 
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable

@@ -18,16 +18,17 @@ dependencies {
 No boilerplate, the static config parser will be generated automatically.
 
 ```kotlin
-import com.charleskorn.kaml.Yaml
+import io.typst.bukkit.kotlin.serialization.ItemStackSerializable
+import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 
 @Serializable
 data class MyConfig(
     val name: String,
-    @Serializable(ItemStackSerializer::class)
-    val item: ItemStack?
-    // or shortcut `val item: ItemStackSerializable?`
+    // typealias ItemStackSerializable = @Serializable(ItemStackSerializer::class) ItemStack 
+    val item: ItemStackSerializable?
 )
 
 class MyPlugin : JavaPlugin() {

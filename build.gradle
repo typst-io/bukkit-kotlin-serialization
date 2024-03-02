@@ -1,14 +1,14 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.8.21'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
     id 'kr.entree.spigradle' version '2.4.3'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.21'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.22'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'maven-publish'
     id 'signing'
 }
 
 group = 'io.typst'
-version = '1.0.0'
+version = '1.1.0'
 
 repositories {
     mavenCentral()
@@ -16,8 +16,8 @@ repositories {
 
 dependencies {
     compileOnly spigot('1.16.5')
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1'
-    testImplementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.3'
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 }
 

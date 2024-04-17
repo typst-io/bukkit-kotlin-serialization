@@ -33,14 +33,15 @@ data class MyConfig(
 
 class MyPlugin : JavaPlugin() {
     var myConfig: MyConfig = MyConfig("", null)
+    val configJson: Json = Json { prettyPrint = true; encodeDefaults = true }
 
     override fun onEnable(): Unit {
-        this.myConfig = Json.Default.decodeFromString(File(dataFolder, "config.json").readText())
+        this.myConfig = configJson.decodeFromString(File(dataFolder, "config.json").readText())
         // or Json.decodeFromString
     }
 
     override fun onDisable(): Unit {
-        File(dataFolder, "config.json").writeText(Json.Default.encodeToString(this.myConfig))
+        File(dataFolder, "config.json").writeText(configJson.encodeToString(this.myConfig))
         // or Json.encodeToString
     }
 } 

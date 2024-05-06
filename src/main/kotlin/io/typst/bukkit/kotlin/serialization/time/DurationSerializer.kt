@@ -12,7 +12,7 @@ import java.time.Duration
 typealias DurationAsString = @Serializable(DurationSerializer::class) Duration
 
 object DurationSerializer : KSerializer<Duration> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Duration", PrimitiveKind.STRING)
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("JavaDuration", PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): Duration {
         return Duration.parse(decoder.decodeString())

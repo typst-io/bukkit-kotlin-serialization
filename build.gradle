@@ -1,14 +1,14 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
+    id 'org.jetbrains.kotlin.jvm' version '1.9.23'
     id 'kr.entree.spigradle' version '2.4.3'
-    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.22'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.9.23'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'maven-publish'
     id 'signing'
 }
 
 group = 'io.typst'
-version = '1.2.0'
+version = '1.3.0'
 
 repositories {
     mavenCentral()

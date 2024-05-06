@@ -14,14 +14,14 @@ val bukkitPluginJson: Json by lazy {
     }
 }
 
-inline fun <reified A> JavaPlugin.readConfigOrCreate(): A {
+inline fun <reified A> JavaPlugin.readConfigOrCreate(defaultValue: () -> A? = { null }): A {
     val configFile = configJsonFile
     if (configFile.isFile) {
         return bukkitPluginJson.decodeFromString<A>(configJsonFile.readText())
     } else {
         configFile.parentFile.mkdirs()
-        val defaultValue = bukkitPluginJson.decodeFromString<A>("{}")
-        configFile.writeText(bukkitPluginJson.encodeToString<A>(defaultValue))
-        return defaultValue
+        val defValue = defaultValue() ?: bukkitPluginJson.decodeFromString<A>("{}")
+        configFile.writeText(bukkitPluginJson.encodeToString<A>(defValue))
+        return defValue
     }
 }

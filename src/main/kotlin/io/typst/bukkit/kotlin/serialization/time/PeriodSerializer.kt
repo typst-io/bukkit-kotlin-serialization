@@ -12,7 +12,7 @@ import java.time.Period
 
 typealias PeriodAsString = @Serializable(PeriodSerializer::class) Period
 object PeriodSerializer : KSerializer<Period> {
-    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("Period", PrimitiveKind.STRING)
+    override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("JavaPeriod", PrimitiveKind.STRING)
 
     override fun deserialize(decoder: Decoder): Period {
         return Period.parse(decoder.decodeString())

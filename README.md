@@ -1,5 +1,7 @@
 # bukkit-kotlin-serialization
 
+![Maven Central Version](https://img.shields.io/maven-central/v/io.typst/bukkit-kotlin-serialization)
+
 A [kotlinx.serialization](https://github.com/Kotlin/kotlinx.serialization#kotlin-multiplatform--multi-format-reflectionless-serialization) extension for Bukkit serializable objects
 
 ## Usage

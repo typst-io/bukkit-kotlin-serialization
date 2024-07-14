@@ -3,6 +3,7 @@ package io.typst.bukkit.kotlin.serialization
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.InternalSerializationApi
 import kotlinx.serialization.KSerializer
+import kotlinx.serialization.SerializationException
 import kotlinx.serialization.builtins.ListSerializer
 import kotlinx.serialization.builtins.MapSerializer
 import kotlinx.serialization.builtins.serializer
@@ -21,17 +22,23 @@ internal object ConfigAnySerializer : KSerializer<Any?> {
         buildSerialDescriptor("BukkitConfigAny", PolymorphicKind.OPEN)
 
     override fun deserialize(decoder: Decoder): Any? {
+        // TODO: use decodeStructure instead of decodeJsonElement
         val jsonDecoder = decoder as? JsonDecoder ?: return null
         val element = jsonDecoder.decodeJsonElement()
-        return exactValue(element)
+        try {
+            return exactValue(element)
+        } catch (ex: SerializationException) {
+            throw SerializationException("Error while deserializing: $element", ex)
+        }
     }
 
-    private fun exactValue(x: JsonElement): Any? =
-        when (x) {
+    private fun exactValue(x: JsonElement): Any? {
+        return when (x) {
             is JsonPrimitive ->
                 if (x.isString) {
                     x.content
-                } else x.intOrNull ?: x.longOrNull ?: x.double
+                } else x.intOrNull ?: x.longOrNull ?: x.doubleOrNull
+                ?: throw SerializationException("Illegal input: $x")
 
             JsonNull -> null
             is JsonArray -> x.map(::exactValue)
@@ -44,6 +51,7 @@ internal object ConfigAnySerializer : KSerializer<Any?> {
                 } else map
             }
         }
+    }
 
     override fun serialize(encoder: Encoder, value: Any?) {
         if (value == null) {

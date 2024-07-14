@@ -37,7 +37,7 @@ internal object ConfigAnySerializer : KSerializer<Any?> {
             is JsonPrimitive ->
                 if (x.isString) {
                     x.content
-                } else x.intOrNull ?: x.longOrNull ?: x.doubleOrNull
+                } else x.intOrNull ?: x.longOrNull ?: x.doubleOrNull ?: x.booleanOrNull
                 ?: throw SerializationException("Illegal input: $x")
 
             JsonNull -> null

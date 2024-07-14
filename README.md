@@ -13,7 +13,7 @@ repositories {
 }
 
 dependencies {
-    implementation('io.typst:bukkit-kotlin-serialization:3.0.0')
+    implementation('io.typst:bukkit-kotlin-serialization:3.0.2')
 }
 ```
 

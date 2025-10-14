@@ -33,6 +33,21 @@ object BukkitConfigSerializableSerializer : KSerializer<ConfigurationSerializabl
         }
     }
 
+    fun deserializeObject(map: Map<String, Any?>): ConfigurationSerializable {
+        val newMap = map.toMutableMap()
+        for ((k, v) in map.entries) {
+            if (v == null) continue
+            if (v is Map<*, *> && v.containsKey(ConfigurationSerialization.SERIALIZED_TYPE_KEY)) {
+                val obj = deserializeObject(v.map {
+                    it.key.toString() to it.value
+                }.toMap())
+                newMap[k] = obj
+            }
+        }
+        return ConfigurationSerialization.deserializeObject(newMap)
+            ?: error("Failed to deserialize ConfigurationSerializable (missing '==' alias?)")
+    }
+
     override fun deserialize(decoder: Decoder): ConfigurationSerializable {
         val map: Map<String, Any?> = when (decoder) {
             is JsonDecoder -> {
@@ -45,8 +60,7 @@ object BukkitConfigSerializableSerializer : KSerializer<ConfigurationSerializabl
                 (yamlToAny(node) as Map<String, Any?>)
             }
         }
-        return ConfigurationSerialization.deserializeObject(map)
-            ?: error("Failed to deserialize ConfigurationSerializable (missing '==' alias?)")
+        return deserializeObject(map)
     }
 
     // -------------------- JSON <-> Any --------------------

@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'io.typst'
-version = '3.1.2'
+version = '3.2.0'
 
 repositories {
     mavenCentral()
@@ -19,6 +19,7 @@ dependencies {
     compileOnly spigot('1.16.5')
     implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0'
     implementation 'com.charleskorn.kaml:kaml-jvm:0.96.0'
+    implementation 'io.vavr:vavr:0.10.7'
     testImplementation 'org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0'
     testImplementation 'org.jetbrains.kotlin:kotlin-test'
 }

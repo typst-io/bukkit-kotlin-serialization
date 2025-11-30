@@ -5,7 +5,7 @@ enum class BinaryOpType(val bindingPowers: Pair<Int, Int>) {
     MINUS(10 to 11),
     MULTIPLY(20 to 21),
     DIVIDE(20 to 21),
-    POW(20 to 21),
+    POW(30 to 29),
     ;
 
     companion object {

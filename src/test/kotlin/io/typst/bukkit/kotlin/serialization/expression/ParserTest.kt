@@ -86,11 +86,11 @@ class ParserTest {
         )
         assertEquals(
             0,
-            Evaluator.evaluate("0/0", emptyMap()).left.index
+            Evaluator().evaluate("0/0").left.index
         )
         assertEquals(
             1,
-            Evaluator.evaluate("1 2", emptyMap()).left.index
+            Evaluator().evaluate("1 2").left.index
         )
     }
 }

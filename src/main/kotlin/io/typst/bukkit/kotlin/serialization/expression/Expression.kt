@@ -13,4 +13,9 @@ sealed interface Expression {
         val left: Expression,
         val right: Expression,
     ) : Expression
+
+    data class FunctionCall(
+        val name: String,
+        val arguments: List<Expression>,
+    ) : Expression
 }

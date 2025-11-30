@@ -7,9 +7,46 @@ object Parser {
         return parseExpression(0, tokens, 0).flatMap { (expr, index) ->
             val token = tokens.getOrNull(index)
             if (token?.tokenType != TokenType.EOF) {
-                Either.left(Failure("Unexpected token: ${token?.lexeme}", index))
+                Either.left(Failure("parser - Unexpected token: ${token?.lexeme}", index))
             } else {
                 Either.right(expr)
+            }
+        }
+    }
+
+    private fun parseFunctionCall(
+        name: String,
+        tokens: List<Token>,
+        i: Int,
+    ): Either<Failure, Pair<Expression, Int>> {
+        val firstToken = tokens.getOrNull(i)
+            ?: return Either.left(Failure("parser - Unterminated function call: $name", i))
+        if (firstToken.tokenType == TokenType.RIGHT_PAREN) {
+            return Either.right(Expression.FunctionCall(name, emptyList()) to (i + 1))
+        }
+        val args = mutableListOf<Expression>()
+
+        var index = i
+        while (true) {
+            val either = parseExpression(0, tokens, index)
+            if (either is Either.Left) {
+                return either
+            }
+            val (argExpr, nextIndex) = either.get()
+            args.add(argExpr)
+            index = nextIndex
+            val token = tokens.getOrNull(index)
+                ?: return Either.left(Failure("parser - Unterminated argument list in call to $name", index))
+            when (token.tokenType) {
+                TokenType.COMMA -> {
+                    index += 1
+                }
+
+                TokenType.RIGHT_PAREN -> return Either.right(
+                    Expression.FunctionCall(name, args) to (index + 1)
+                )
+
+                else -> return Either.left(Failure("parser - Expected ',' or ')' in argument list of $name", index))
             }
         }
     }
@@ -23,7 +60,13 @@ object Parser {
             }
 
             TokenType.IDENTIFIER -> {
-                Either.right(Expression.Variable(current.lexeme) to (i + 1))
+                val name = current.lexeme
+                val next = tokens.getOrNull(i + 1)
+                if (next?.tokenType == TokenType.LEFT_PAREN) {
+                    parseFunctionCall(name, tokens, i + 2)
+                } else {
+                    Either.right(Expression.Variable(current.lexeme) to (i + 1))
+                }
             }
 
             TokenType.OPERATOR -> {
@@ -35,7 +78,7 @@ object Parser {
                             Expression.Unary(unaryOp, operand) to newIndex
                         }
                 } else {
-                    Either.left(Failure("Unexpected prefix operator: $op", i))
+                    Either.left(Failure("parser - Unexpected prefix operator: $op", i))
                 }
             }
 
@@ -43,13 +86,13 @@ object Parser {
                 parseExpression(0, tokens, i + 1)
                     .flatMap { (expr, newIndex) ->
                         if (tokens[newIndex].tokenType != TokenType.RIGHT_PAREN) {
-                            Either.left(Failure("Expected ')' to close '('", newIndex))
+                            Either.left(Failure("parser - Expected ')' to close '('", newIndex))
                         } else Either.right(expr to (newIndex + 1))
                     }
             }
 
             else -> {
-                Either.left(Failure("Unexpected token: ${current.lexeme}", i))
+                Either.left(Failure("parser - Unexpected token: ${current.lexeme}", i))
             }
         }
     }
@@ -73,7 +116,7 @@ object Parser {
             val op = token.lexeme
             val binaryOp = BinaryOpType.from(op[0])
             val (leftBp, rightBp) = binaryOp?.bindingPowers
-                ?: return Either.left(Failure("Unknown operator: $op", newIndex))
+                ?: return Either.left(Failure("parser - Unknown operator: $op", newIndex))
             if (leftBp < minBp) break
             val rightEither = parseExpression(rightBp, tokens, newIndex + 1)
             if (rightEither is Either.Left) {

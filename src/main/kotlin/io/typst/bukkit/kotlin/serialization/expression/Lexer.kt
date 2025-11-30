@@ -30,7 +30,7 @@ object Lexer {
                         hasDot = true
                         end++
                     } else {
-                        return Either.left(Failure("Non-digit char: $c", end))
+                        return Either.left(Failure("lex - Non-digit char: $c", end))
                     }
                 } else if (c.isDigit()) {
                     end++
@@ -54,15 +54,16 @@ object Lexer {
         }
 
         val tokenType = when (ch) {
-            '+', '-', '*', '/' -> TokenType.OPERATOR
+            '+', '-', '*', '/', '^' -> TokenType.OPERATOR
             '(' -> TokenType.LEFT_PAREN
             ')' -> TokenType.RIGHT_PAREN
+            ',' -> TokenType.COMMA
             else -> null
         }
         return if (tokenType != null) {
             Either.right(Token(tokenType, ch.toString(), index, index + 1))
         } else {
-            Either.left(Failure("Unknown char: $ch", index))
+            Either.left(Failure("lex - Unknown char: $ch", index))
         }
     }
 

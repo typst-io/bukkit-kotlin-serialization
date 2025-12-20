@@ -3,13 +3,12 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '2.2.21'
     id 'io.typst.spigradle' version '3.0.4'
     id 'org.jetbrains.kotlin.plugin.serialization' version '2.2.21'
-    id 'com.github.johnrengelman.shadow' version '8.1.1'
     id 'maven-publish'
     id 'signing'
 }
 
 group = 'io.typst'
-version = '4.0.1'
+version = '4.0.2'
 
 repositories {
     mavenCentral()
@@ -37,8 +36,6 @@ kotlin {
 spigot {
     apiVersion '1.16'
 }
-
-assemble.dependsOn(shadowJar)
 
 publishing {
     publications {

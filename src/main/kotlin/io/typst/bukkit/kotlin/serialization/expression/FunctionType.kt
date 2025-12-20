@@ -1,7 +1,5 @@
 package io.typst.bukkit.kotlin.serialization.expression
 
-import kotlin.math.min
-
 enum class FunctionType(val label: String, val argumentSize: Int) {
     MIN("min", 2),
     MAX("max", 2),

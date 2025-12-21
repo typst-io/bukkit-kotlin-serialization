@@ -87,7 +87,9 @@ object BukkitConfigSerializableSerializer : KSerializer<ConfigurationSerializabl
         is JsonPrimitive -> when {
             elem.isString -> elem.content
             elem.booleanOrNull != null -> elem.boolean
-            elem.longOrNull != null -> if (elem.content.contains('.')) elem.double else elem.long
+            elem.intOrNull != null -> elem.int
+            elem.longOrNull != null -> elem.long
+            elem.doubleOrNull != null -> elem.double
             else -> elem.content
         }
 
